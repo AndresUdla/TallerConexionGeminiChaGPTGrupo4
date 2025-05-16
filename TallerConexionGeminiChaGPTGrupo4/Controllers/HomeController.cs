@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TallerConexionGeminiChaGPTGrupo4.Models;
+using TallerConexionGeminiChaGPTGrupo4.Repositories;
 
 namespace TallerConexionGeminiChaGPTGrupo4.Controllers
 {
@@ -13,9 +14,12 @@ namespace TallerConexionGeminiChaGPTGrupo4.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            GeminiRepository geminiRepository = new GeminiRepository();
+            string answer = await geminiRepository.GetChatBotResponse("¿Que es el FC Barcelona?");
+
+            return View(answer);
         }
 
         public IActionResult Privacy()
