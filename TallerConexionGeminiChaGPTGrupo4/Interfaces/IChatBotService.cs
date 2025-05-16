@@ -2,6 +2,6 @@
 {
     public interface IChatBotService
     {
-        public string GetChatBotResponse(string prompt);
+        public Task<string> GetChatBotResponse(string prompt);
     }
 }
