@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "TuApellidoBOT";
+}
+
+<h1 class="text-center my-4">TuApellidoBOT</h1>
+
+<!-- Tarjetas de miembros del grupo -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <img src="~/images/miembro1.jpg" class="card-img-top" alt="Miembro 1">
+            <div class="card-body">
+                <h5 class="card-title">Andrés Pérez</h5>
+                <p class="card-text">Correo: andres@udla.edu.ec</p>
+                <p class="card-text">Intereses: Backend, Java, Videojuegos</p>
+            </div>
+        </div>
+    </div>
+    <!-- Repite por cada miembro -->
+</div>
+
+<!-- Formulario para enviar pregunta -->
+<form method="post" asp-controller="ChatBot" asp-action="Index">
+    <div class="form-group">
+        <label for="provider">Selecciona el proveedor:</label>
+        <select id="provider" name="provider" class="form-control" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Gemini">Gemini</option>
+            <option value="Groq">Groq</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="prompt">Escribe tu pregunta:</label>
+        <textarea id="prompt" name="prompt" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+</form>
+
+<!-- Mostrar respuesta -->
+@if (ViewBag.Response != null)
+{
+    <div class="alert alert-success mt-4">
+        <strong>Respuesta de @ViewBag.Provider:</strong><br />
+        @ViewBag.Response
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mt-4">@ViewBag.Error</div>
+}
