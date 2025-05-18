@@ -7,35 +7,57 @@
 <!-- Título personalizado -->
 <h1 class="text-center my-4 display-4">MulloPilamungaMartinBOT</h1>
 
-<!-- Tarjetas de miembros del grupo -->
-<div class="row mb-4 justify-content-center">
-    <div class="col-md-4">
-        <div class="card h-100 shadow">
-            <img src="~/imgs/josue.jpg" class="card-img-top" alt="Josue Mullo">
-            <div class="card-body">
-                <h5 class="card-title">Josue Mullo</h5>
-                <p class="card-text"><strong>Correo:</strong> josue.mullo@udla.edu.ec</p>
-                <p class="card-text"><strong>Intereses:</strong> Desarrollo web, bases de datos, ciberseguridad</p>
+<div class="row mb-4">
+    <!-- Josue Mullo -->
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="row g-0">
+                <div class="col-5">
+                    <img src="~/imgs/josue.jpeg" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Josue Mullo">
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Josue Mullo</h5>
+                        <p class="card-text">Correo: josue.mullo@udla.edu.ec</p>
+                        <p class="card-text">Intereses: Desarrollo backend, ciberseguridad, videojuegos</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow">
-            <img src="~/imgs/martin.jpg" class="card-img-top" alt="Martin Burga">
-            <div class="card-body">
-                <h5 class="card-title">Martin Burga</h5>
-                <p class="card-text"><strong>Correo:</strong> martin.burga@udla.edu.ec</p>
-                <p class="card-text"><strong>Intereses:</strong> Inteligencia artificial, backend, videojuegos</p>
+
+    <!-- Martin Burga -->
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="row g-0">
+                <div class="col-5">
+                    <img src="~/imgs/martin.jpg" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Martin Burga">
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Martin Burga</h5>
+                        <p class="card-text">Correo: martin.burga@udla.edu.ec</p>
+                        <p class="card-text">Intereses: Inteligencia artificial, bases de datos, videojuegos</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow">
-            <img src="~/imgs/santiago.jpg" class="card-img-top" alt="Santiago Pilamunga">
-            <div class="card-body">
-                <h5 class="card-title">Santiago Pilamunga</h5>
-                <p class="card-text"><strong>Correo:</strong> santiago.pilamunga@udla.edu.ec</p>
-                <p class="card-text"><strong>Intereses:</strong> Fullstack, sistemas distribuidos, diseño UX/UI</p>
+
+    <!-- Santiago Pilamunga -->
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="row g-0">
+                <div class="col-5">
+                    <img src="~/imgs/santiago.jpeg" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Santiago Pilamunga">
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Santiago Pilamunga</h5>
+                        <p class="card-text">Correo: santiago.pilamunga@udla.edu.ec</p>
+                        <p class="card-text">Intereses: Frontend, diseño de interfaces, música</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,20 +73,21 @@
         @if (response != null)
         {
             <div class="d-flex flex-column">
-                <!-- Simulación mensaje del usuario -->
+                <!-- Simulación mensaje del usuario con clase personalizada -->
                 <div class="d-flex justify-content-end mb-2">
-                    <div class="bg-light border rounded p-2" style="max-width: 75%;">
+                    <div class="chat-bubble-user" style="max-width: 75%;">
                         <strong>Tú:</strong><br />
                         @ViewBag.Prompt
                     </div>
                 </div>
-                <!-- Simulación mensaje del bot -->
+                <!-- Simulación mensaje del bot con clase personalizada -->
                 <div class="d-flex justify-content-start mb-2">
-                    <div class="bg-success text-white rounded p-2" style="max-width: 75%;">
+                    <div class="chat-bubble-bot" style="max-width: 75%;">
                         <strong>@provider:</strong><br />
                         @Html.Raw(response.Replace("\n", "<br />"))
                     </div>
                 </div>
+
             </div>
         }
         else
