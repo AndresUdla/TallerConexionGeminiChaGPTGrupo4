@@ -1,44 +1,43 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using TallerConexionGeminiChaGPTGrupo4.Interfaces;
-using TallerConexionGeminiChaGPTGrupo4.Models;
 
-namespace TallerConexionGeminiChaGPTGrupo4.Repositories
+public class GroqRepository : IGroqRepository
 {
-    public class GroqRepository : IGroqRepository
+    private readonly HttpClient _httpClient;
+    private readonly string _apiKey = "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";
+
+    public GroqRepository(HttpClient httpClient)
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _apiKey;
+        _httpClient = httpClient;
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+    }
 
-        public GroqRepository(HttpClient httpClient, string apiKey)
+    public async Task<string> GetResponseAsync(string prompt)
+    {
+        string url = "https://api.groq.ai/v1/chat/completions";
+
+        var requestBody = new
         {
-            _httpClient = httpClient;
-            _apiKey = apiKey;
-        }
-
-        public async Task<string> GetResponseAsync(string prompt)
-        {
-            string url = $"https://api.groq.ai/v1/chat/completions"; // Ajusta la URL según documentación oficial
-
-            var requestBody = new
+            model = "llama3-8b-8192",
+            messages = new[]
             {
-                model = "groq-3.5-turbo",  // Ajusta según el modelo que uses
-                messages = new[]
-                {
-                    new { role = "user", content = prompt }
-                }
-            };
+                new { role = "user", content = prompt }
+            }
+        };
 
-            // Agrega la apiKey en el header si así lo requiere la API de Groq
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+        var response = await _httpClient.PostAsJsonAsync(url, requestBody);
+        response.EnsureSuccessStatusCode();
 
-            var response = await _httpClient.PostAsJsonAsync(url, requestBody);
-            response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
 
-            var answer = await response.Content.ReadAsStringAsync();
-            return answer;
-        }
+        using var doc = JsonDocument.Parse(json);
+        var content = doc.RootElement
+                         .GetProperty("choices")[0]
+                         .GetProperty("message")
+                         .GetProperty("content")
+                         .GetString();
+
+        return content ?? "Respuesta vacía.";
     }
 }

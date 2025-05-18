@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using TallerConexionGeminiChaGPTGrupo4.Interfaces;
+﻿using TallerConexionGeminiChaGPTGrupo4.Interfaces;
 
 namespace TallerConexionGeminiChaGPTGrupo4.Repositories
 {
@@ -16,7 +15,6 @@ namespace TallerConexionGeminiChaGPTGrupo4.Repositories
 
         public async Task<string> GetChatBotResponse(string prompt, string provider)
         {
-            // provider puede ser "gemini" o "groq"
             if (provider.ToLower() == "gemini")
             {
                 return await _geminiRepository.GetResponseAsync(prompt);
@@ -27,7 +25,7 @@ namespace TallerConexionGeminiChaGPTGrupo4.Repositories
             }
             else
             {
-                return "Proveedor no soportado.";
+                throw new ArgumentException("Proveedor no válido. Debe ser 'gemini' o 'groq'.");
             }
         }
     }
