@@ -1,6 +1,6 @@
 ﻿namespace TallerConexionGeminiChaGPTGrupo4.Interfaces
 {
-    public class IGroqRepository
+    public interface IGroqRepository
     {
         Task<string> GetResponseAsync(string prompt);
     }

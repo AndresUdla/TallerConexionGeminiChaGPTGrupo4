@@ -1,24 +1,28 @@
-﻿using TallerConexionGeminiChaGPTGrupo4.Interfaces;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using TallerConexionGeminiChaGPTGrupo4.Interfaces;
 using TallerConexionGeminiChaGPTGrupo4.Models;
 
 namespace TallerConexionGeminiChaGPTGrupo4.Repositories
 {
-    public class GeminiRepository : IChatBotService
+    public class GeminiRepository : IGeminiRepository
     {
-        HttpClient _httpClient;
-        private string apiKey = "AIzaSyAWRxEriVFjv74UGbnDrCXDTx25XRRSuTM";
-        
-        public GeminiRepository()
+        private readonly HttpClient _httpClient;
+        private readonly string _apiKey;
+
+        // Recibe HttpClient y apiKey desde afuera (ideal para inyección de dependencias)
+        public GeminiRepository(HttpClient httpClient, string apiKey)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
+            _apiKey = apiKey;
         }
 
-        public async Task<string> GetChatBotResponse(string prompt)
+        public async Task<string> GetResponseAsync(string prompt)
         {
-            string url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="+apiKey;
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, url);
+            string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={_apiKey}";
 
-            GeminiRequest requestBody = new GeminiRequest
+            var requestBody = new GeminiRequest
             {
                 contents = new List<Content>
                 {
@@ -34,11 +38,12 @@ namespace TallerConexionGeminiChaGPTGrupo4.Repositories
                     }
                 }
             };
-            message.Content = JsonContent.Create<GeminiRequest>(requestBody);
-            var response = await _httpClient.SendAsync(message);
-            string answer = await response.Content.ReadAsStringAsync();
-            return answer;
 
+            var response = await _httpClient.PostAsJsonAsync(url, requestBody);
+            response.EnsureSuccessStatusCode();
+
+            var answer = await response.Content.ReadAsStringAsync();
+            return answer;
         }
     }
 }
