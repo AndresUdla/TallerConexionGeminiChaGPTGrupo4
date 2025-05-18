@@ -1,53 +1,102 @@
 ﻿@{
-    ViewData["Title"] = "TuApellidoBOT";
+    ViewData["Title"] = "MulloPilamungaMartinBOT";
+    var response = ViewBag.Response as string;
+    var provider = ViewBag.Provider as string;
 }
 
-<h1 class="text-center my-4">TuApellidoBOT</h1>
+<!-- Título personalizado -->
+<h1 class="text-center my-4 display-4">MulloPilamungaMartinBOT</h1>
 
 <!-- Tarjetas de miembros del grupo -->
-<div class="row mb-4">
+<div class="row mb-4 justify-content-center">
     <div class="col-md-4">
-        <div class="card">
-            <img src="~/images/miembro1.jpg" class="card-img-top" alt="Miembro 1">
+        <div class="card h-100 shadow">
+            <img src="~/imgs/josue.jpg" class="card-img-top" alt="Josue Mullo">
             <div class="card-body">
-                <h5 class="card-title">Andrés Pérez</h5>
-                <p class="card-text">Correo: andres@udla.edu.ec</p>
-                <p class="card-text">Intereses: Backend, Java, Videojuegos</p>
+                <h5 class="card-title">Josue Mullo</h5>
+                <p class="card-text"><strong>Correo:</strong> josue.mullo@udla.edu.ec</p>
+                <p class="card-text"><strong>Intereses:</strong> Desarrollo web, bases de datos, ciberseguridad</p>
             </div>
         </div>
     </div>
-    <!-- Repite por cada miembro -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <img src="~/imgs/martin.jpg" class="card-img-top" alt="Martin Burga">
+            <div class="card-body">
+                <h5 class="card-title">Martin Burga</h5>
+                <p class="card-text"><strong>Correo:</strong> martin.burga@udla.edu.ec</p>
+                <p class="card-text"><strong>Intereses:</strong> Inteligencia artificial, backend, videojuegos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <img src="~/imgs/santiago.jpg" class="card-img-top" alt="Santiago Pilamunga">
+            <div class="card-body">
+                <h5 class="card-title">Santiago Pilamunga</h5>
+                <p class="card-text"><strong>Correo:</strong> santiago.pilamunga@udla.edu.ec</p>
+                <p class="card-text"><strong>Intereses:</strong> Fullstack, sistemas distribuidos, diseño UX/UI</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Formulario para enviar pregunta -->
-<form method="post" asp-controller="ChatBot" asp-action="Index">
-    <div class="form-group">
-        <label for="provider">Selecciona el proveedor:</label>
-        <select id="provider" name="provider" class="form-control" required>
-            <option value="">-- Selecciona --</option>
-            <option value="Gemini">Gemini</option>
-            <option value="Groq">Groq</option>
-        </select>
+
+<!-- Caja de chat -->
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        Chat IA - Selecciona proveedor y conversa
+    </div>
+    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+        @if (response != null)
+        {
+            <div class="d-flex flex-column">
+                <!-- Simulación mensaje del usuario -->
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="bg-light border rounded p-2" style="max-width: 75%;">
+                        <strong>Tú:</strong><br />
+                        @ViewBag.Prompt
+                    </div>
+                </div>
+                <!-- Simulación mensaje del bot -->
+                <div class="d-flex justify-content-start mb-2">
+                    <div class="bg-success text-white rounded p-2" style="max-width: 75%;">
+                        <strong>@provider:</strong><br />
+                        @Html.Raw(response.Replace("\n", "<br />"))
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p class="text-muted">Envía tu primera pregunta para comenzar.</p>
+        }
     </div>
 
-    <div class="form-group mt-3">
-        <label for="prompt">Escribe tu pregunta:</label>
-        <textarea id="prompt" name="prompt" class="form-control" rows="4" required></textarea>
+    <!-- Formulario de pregunta -->
+    <div class="card-footer">
+        <form method="post" asp-controller="ChatBot" asp-action="Index" class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label for="provider" class="form-label">Proveedor:</label>
+                <select id="provider" name="provider" class="form-select" required>
+                    <option value="">-- Selecciona --</option>
+                    <option value="Gemini">Gemini</option>
+                    <option value="Groq">Groq</option>
+                </select>
+            </div>
+            <div class="col-md-7">
+                <label for="prompt" class="form-label">Pregunta:</label>
+                <textarea id="prompt" name="prompt" class="form-control" rows="2" required></textarea>
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-primary mt-3">Enviar</button>
-</form>
-
-<!-- Mostrar respuesta -->
-@if (ViewBag.Response != null)
-{
-    <div class="alert alert-success mt-4">
-        <strong>Respuesta de @ViewBag.Provider:</strong><br />
-        @ViewBag.Response
-    </div>
-}
-
+<!-- Error -->
 @if (ViewBag.Error != null)
 {
-    <div class="alert alert-danger mt-4">@ViewBag.Error</div>
+    <div class="alert alert-danger mt-3">@ViewBag.Error</div>
 }

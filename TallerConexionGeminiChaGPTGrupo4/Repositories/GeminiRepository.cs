@@ -1,4 +1,5 @@
-﻿using TallerConexionGeminiChaGPTGrupo4.Interfaces;
+﻿using System.Text.Json;
+using TallerConexionGeminiChaGPTGrupo4.Interfaces;
 using TallerConexionGeminiChaGPTGrupo4.Models;
 
 public class GeminiRepository : IGeminiRepository
@@ -35,8 +36,15 @@ public class GeminiRepository : IGeminiRepository
         var response = await _httpClient.PostAsJsonAsync(url, requestBody);
         response.EnsureSuccessStatusCode();
 
-        var answer = await response.Content.ReadAsStringAsync();
-        return answer;
+        var json = await response.Content.ReadAsStringAsync();
+
+        // Deserializar usando tus modelos
+        var geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(json);
+
+        // Extraer el texto de la primera parte
+        var responseText = geminiResponse?.candidates?[0]?.content?.parts?[0]?.text;
+
+        // Si quieres que se vea bien en HTML, cambia \n por <br>
+        return responseText?.Replace("\n", "<br>") ?? "Respuesta vacía.";
     }
 }
-

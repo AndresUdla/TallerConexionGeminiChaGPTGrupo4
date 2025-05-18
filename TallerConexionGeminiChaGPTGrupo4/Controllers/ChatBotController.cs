@@ -27,6 +27,7 @@ namespace TallerConexionGeminiChaGPTGrupo4.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string prompt, string provider)
         {
+            // Validación de campos vacíos
             if (string.IsNullOrWhiteSpace(prompt) || string.IsNullOrWhiteSpace(provider))
             {
                 ViewBag.Error = "Por favor selecciona un proveedor y escribe una pregunta.";
@@ -35,19 +36,22 @@ namespace TallerConexionGeminiChaGPTGrupo4.Controllers
 
             try
             {
+                // Obtener respuesta desde el proveedor (Gemini o Groq)
                 string response = await _chatBotService.GetChatBotResponse(prompt, provider);
 
+                // Guardar en base de datos
                 var chatResponse = new ChatResponse
                 {
                     Respuesta = response,
                     Fecha = DateTime.Now,
                     Proveedor = provider,
-                    GuardadoPor = User.Identity.Name ?? "Invitado"
+                    GuardadoPor = User.Identity?.Name ?? "Invitado"
                 };
 
                 _dbContext.ChatResponses.Add(chatResponse);
                 await _dbContext.SaveChangesAsync();
 
+                // Pasar datos a la vista
                 ViewBag.Prompt = prompt;
                 ViewBag.Provider = provider;
                 ViewBag.Response = response;
