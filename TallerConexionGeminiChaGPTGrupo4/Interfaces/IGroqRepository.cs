@@ -2,5 +2,6 @@
 {
     public class IGroqRepository
     {
+        Task<string> GetResponseAsync(string prompt);
     }
 }
