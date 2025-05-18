@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using TallerConexionGeminiChaGPTGrupo4.DbContext;
 using TallerConexionGeminiChaGPTGrupo4.Interfaces;
 using TallerConexionGeminiChaGPTGrupo4.Models;
 
