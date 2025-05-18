@@ -15,7 +15,8 @@ public class GroqRepository : IGroqRepository
 
     public async Task<string> GetResponseAsync(string prompt)
     {
-        string url = "https://api.groq.ai/v1/chat/completions";
+        string url = "https://api.groq.com/openai/v1/chat/completions";
+
 
         var requestBody = new
         {
