@@ -60,7 +60,7 @@ body {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
-    /* Mejorar el header del chat */
+
     .card-header.bg-primary {
         background: linear-gradient(90deg, #4f8cff 60%, #6ee7b7 100%) !important;
         color: #fff !important;
@@ -97,7 +97,7 @@ body.bg-chatbot {
     min-height: 100vh;
 }
 
-/* Sombra y borde para el área del chat */
+
 .card.shadow-sm {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     border-radius: 20px;

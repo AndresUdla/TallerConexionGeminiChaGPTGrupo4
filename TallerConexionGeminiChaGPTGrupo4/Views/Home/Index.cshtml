@@ -2,7 +2,27 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-3">¡Bienvenido a MulloPilamungaBurgaBOT!</h1>
+            <p class="lead mb-4">
+                Esta aplicación web te permite interactuar con motores de inteligencia artificial gratuitos como <strong>Gemini</strong> y <strong>Groq</strong>.<br>
+                Selecciona tu proveedor favorito, realiza preguntas y obtén respuestas instantáneas. Todas las conversaciones quedan registradas para tu consulta.
+            </p>
+            <div class="mb-4">
+                <img src="~/imgs/chatbot_welcome.png" alt="ChatBot" class="img-fluid rounded shadow" style="max-width: 300px;">
+            </div>
+            <a href="@Url.Action("Index", "ChatBot")" class="btn btn-primary btn-lg">
+                Ir al ChatBot
+            </a>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="alert alert-info">
+                <strong>¿Sabías que?</strong> Puedes elegir el proveedor de IA, guardar tus preguntas con tu nombre o como invitado, y ver el historial de tus conversacion scrolleando hacia atras.
+            </div>
+        </div>
+    </div>
 </div>
