@@ -38,13 +38,13 @@ public class GeminiRepository : IGeminiRepository
 
         var json = await response.Content.ReadAsStringAsync();
 
-        // Deserializar usando tus modelos
+        
         var geminiResponse = JsonSerializer.Deserialize<GeminiResponse>(json);
 
-        // Extraer el texto de la primera parte
+        
         var responseText = geminiResponse?.candidates?[0]?.content?.parts?[0]?.text;
 
-        // Si quieres que se vea bien en HTML, cambia \n por <br>
+        
         return responseText?.Replace("\n", "<br>") ?? "Respuesta vacía.";
     }
 }

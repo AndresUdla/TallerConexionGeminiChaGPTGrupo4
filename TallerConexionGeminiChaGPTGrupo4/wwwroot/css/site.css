@@ -60,11 +60,21 @@ body {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
+    /* Mejorar el header del chat */
+    .card-header.bg-primary {
+        background: linear-gradient(90deg, #4f8cff 60%, #6ee7b7 100%) !important;
+        color: #fff !important;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
 
+/* Footer del chat */
 .card-footer {
-    background-color: #f1f1f1;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    background: #f1f5f9;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .chat-bubble-user {
@@ -80,3 +90,35 @@ body {
     border-radius: 15px 15px 15px 0;
     padding: 10px;
 }
+
+/* Fondo general para la página del chatbot */
+body.bg-chatbot {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+    min-height: 100vh;
+}
+
+/* Sombra y borde para el área del chat */
+.card.shadow-sm {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border-radius: 20px;
+    border: 1px solid #e0e7ff;
+    background: rgba(255,255,255,0.95);
+}
+
+/* Input y botón */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #4f8cff 60%, #6ee7b7 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #2563eb 60%, #059669 100%);
+    }

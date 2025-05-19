@@ -1,11 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "MulloPilamungaMartinBOT";
+    ViewData["Title"] = "MulloPilamungaBurgaBOT";
+    ViewData["BodyClass"] = "bg-chatbot";
     var response = ViewBag.Response as string;
     var provider = ViewBag.Provider as string;
 }
 
-<!-- Título personalizado -->
-<h1 class="text-center my-4 display-4">MulloPilamungaMartinBOT</h1>
+
+<h1 class="text-center my-4 display-4">MulloPilamungaBurgaBOT</h1>
 
 <div class="row mb-4">
     <!-- Josue Mullo -->
@@ -69,7 +70,7 @@
     <div class="card-header bg-primary text-white">
         Chat IA - Selecciona proveedor y conversa
     </div>
-    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+    <div class="card-body" id="chatHistory" style="max-height: 700px; overflow-y: auto;">
         @if (response != null)
         {
             <div class="d-flex flex-column">
@@ -98,7 +99,7 @@
 
     <!-- Formulario de pregunta -->
     <div class="card-footer">
-        <form method="post" asp-controller="ChatBot" asp-action="Index" class="row g-2 align-items-end">
+        <form id="chatForm" class="row g-2 align-items-end">
             <div class="col-md-3">
                 <label for="provider" class="form-label">Proveedor:</label>
                 <select id="provider" name="provider" class="form-select" required>
@@ -107,14 +108,19 @@
                     <option value="Groq">Groq</option>
                 </select>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <label for="prompt" class="form-label">Pregunta:</label>
                 <textarea id="prompt" name="prompt" class="form-control" rows="2" required></textarea>
+            </div>
+            <div class="col-md-2">
+                <label for="guardadoPor" class="form-label">Guardado por:</label>
+                <input type="text" id="guardadoPor" name="guardadoPor" class="form-control" placeholder="Invitado (opcional)" />
             </div>
             <div class="col-md-2 text-end">
                 <button type="submit" class="btn btn-primary w-100">Enviar</button>
             </div>
         </form>
+
     </div>
 </div>
 

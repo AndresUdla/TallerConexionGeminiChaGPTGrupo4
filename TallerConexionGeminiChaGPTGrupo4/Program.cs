@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using TallerConexionGeminiChaGPTGrupo4.Interfaces;
 using TallerConexionGeminiChaGPTGrupo4.Repositories;
-using TallerConexionGeminiChaGPTGrupo4.DbContext; // Asegúrate de que este namespace coincida con donde creaste el ApplicationDbContext
+using TallerConexionGeminiChaGPTGrupo4.DbContext; 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar el contexto de base de datos con la cadena de conexión desde appsettings.json
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
